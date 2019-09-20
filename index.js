@@ -12,6 +12,7 @@ function BlockSort(a, b) {
   return atime > btime;
 }
 
+var cardclass = "col-xs-12 col-sm-12 col-md-4 col-lg-2";
 /**
  * Block Mithril Object
  * 
@@ -20,7 +21,7 @@ function BlockSort(a, b) {
 var Block = {
   view: function (vnode) {
     var title = m("h2", vnode.attrs.start + " tot " + vnode.attrs.end)
-    var section = m("section", { class: "blok", "data-blokid": "block_" + vnode.attrs.key },
+    var section = m("section", { class: "blok row", "data-blokid": "block_" + vnode.attrs.key },
       ProgramData.Rooms.map(function (roomdata) {
         // See if we can retrieve an active presentation for a room, given the block.
         var pres = ProgramData.getPresentation(roomdata.key, vnode.attrs.key);
@@ -33,11 +34,13 @@ var Block = {
   }
 }
 
-
+/**
+ * Presentation Mithril Object
+ */
 var Presentation = {
   view: function (vnode) {
     console.log(vnode.attrs);
-    return m("section", { class: "presentatie " + vnode.attrs.thema, "data-presentatieId": vnode.attrs.key },
+    return m("section", { class: "presentatie box " + vnode.attrs.thema, "data-presentatieId": vnode.attrs.key },
       m("div", { class: "indicator", "data-presentatieId": vnode.attrs.key }, [
         m("div", { class: "heart_5617cae9ce5d0", "data-presentatieId": vnode.attrs.key }),
         m("div", { class: "bar", "data-presentatieId": vnode.attrs.key, "data-capaciteit": 0 }, m("div", { class: "fill" }, ""))
@@ -47,26 +50,18 @@ var Presentation = {
       m("p", vnode.attrs.beschrijving)
     );
   }
-  /*<section class="presentatie <?= $presentatie->thema ?>" data-presentatieId="<?= $presentatieId ?>">
-                                            <div class="indicator" data-presentatieId="<?= $presentatieId ?>">
-                                                <div class="heart_5617cae9ce5d0" data-presentatieId="<?= $presentatieId ?>"></div>
-                                                <div class="bar" data-presentatieId="<?= $presentatieId ?>" data-capaciteit="<?= $ruimte->capaciteit ?>"><div class="fill"></div></div>
-                                            </div>
-                                            <h1><?= $presentatie->ruimte ?>: <?= $presentatie->titel ?></h1>
-                                            <h2>door <?= $presentatie->naam ?></h2>
-                                            <p><?= $presentatie->beschrijving ?></p>
-                                        </section>*/
 }
+
 /**
  * Room Mithril Object
  */
 var Room = {
   view: function (vnode) {
     if (vnode.attrs.presentation) {
-      return m("section", { class: "ruimte", "data-ruimteid": vnode.attrs.key }, m(Presentation, vnode.attrs.presentation));
+      return m("section", { class: "ruimte " + cardclass, "data-ruimteid": vnode.attrs.key }, m(Presentation, vnode.attrs.presentation));
     } else {
       // No presentation in this slot
-      return m("section", { class: "ruimte", "data-ruimteid": vnode.attrs.key }, m("section", { class: "placeholder" }, vnode.attrs.key));
+      return m("section", { class: "ruimte " + cardclass, "data-ruimteid": vnode.attrs.key }, m("section", { class: "placeholder box" }, vnode.attrs.key));
     }
 
   }
@@ -190,36 +185,6 @@ var Page = {
     ]);
   }
 }
-/*
-<?php foreach ($programma->blokken as $blokId => $blok) { ?>
-    <h2><?= $blok->begintijd ?> tot <?= $blok->eindtijd ?></h2>
-    <section class="blok" data-blokid="<?= $blokId ?>">
-        <?php foreach ($programma->ruimtes as $ruimteId => $ruimte) { ?>
-            <section class="ruimte" data-ruimteid="<?= $ruimteId ?>"><?php
-                $presentaties = getPresentaties($blokId, $ruimteId);
-                if ($presentaties) {
-                    foreach ((array) $presentaties as $presentatieId => $presentatie) { ?>
-                        <!--http://www.html5rocks.com/en/tutorials/dnd/basics/-->
-                        <section class="presentatie <?= $presentatie->thema ?>" data-presentatieId="<?= $presentatieId ?>">
-                            <div class="indicator" data-presentatieId="<?= $presentatieId ?>">
-                                <div class="heart_5617cae9ce5d0" data-presentatieId="<?= $presentatieId ?>"></div>
-                                <div class="bar" data-presentatieId="<?= $presentatieId ?>" data-capaciteit="<?= $ruimte->capaciteit ?>"><div class="fill"></div></div>
-                            </div>
-                            <h1><?= $presentatie->ruimte ?>: <?= $presentatie->titel ?></h1>
-                            <h2>door <?= $presentatie->naam ?></h2>
-                            <p><?= $presentatie->beschrijving ?></p>
-                        </section>
-                    <?php }
-                } else {
-                    ?>
-                        <section class="placeholder"><?= $ruimteId ?></section>
-                    <?php
-                }
-            ?></section>
-        <?php } ?>
-    </section>
-<?php } ?>
-*/
 
 /**
  *   __main__

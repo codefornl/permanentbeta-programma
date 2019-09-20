@@ -1,0 +1,179 @@
+html, body {
+    background: #111;
+    color: white;
+    font-family: Verdana, Tahoma, Arial;
+}
+h1 {
+    font-size: 1em;
+    font-weight: 100;
+    font-family: "Fredoka One";
+    text-align: center;
+}
+h2 {
+    font-size: 0.8em;
+    font-weight: 500;
+    font-variant: small-caps;
+    text-align: center;
+}
+p {
+    text-align: center;
+}
+p a.button {
+    display: block;
+    width: 200px;
+    margin: auto;
+    color: white;
+    border: 1px solid white;
+    text-decoration: none;
+    margin-top: 10px;
+}
+.blok {
+    background: #333 url(darkdenim3.png);
+}
+
+.placeholder {
+    
+    text-align: center;
+    font-size: 2em;
+    color: #222;
+    height: 200px;
+}
+.presentatie {
+    overflow-y: hidden;
+    height: 100%;
+    /*cursor: move;*/
+}
+.presentatie p {
+    text-align: justify;
+    display: none;
+}
+.presentatie.tech {
+    background: #0ff;
+    color: #077;
+}
+.presentatie.edu {
+    background: #ff0;
+    color: #770;
+}
+.presentatie.sust {
+    background: #f90;
+    color: #720;
+}
+.presentatie.self {
+    background: #f09;
+    color: #702;
+}
+.presentatie.org {
+    background: #0f0;
+    color: #070;
+}
+.presentatie.pb {
+    background: #909;
+    color: #fff;
+    border: 0;
+}
+/* FIXME Also a bit ugly :) */
+.details .ruimte,
+.details .presentatie {
+    width: 100%;
+    min-height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border: 0;
+    margin: 0;
+    z-index: 1000;
+}
+.details .ruimte {
+    background: #000;
+}
+.details .presentatie {
+    overflow: auto;
+}
+.indicator {
+    position: absolute;
+    padding: 0.2em;
+    bottom: 0;
+    right: 0;
+}
+.bar {
+    width: 34px;
+    height: 4px;
+    background: #000;
+    margin-top: 40px;
+    padding: 2px;
+}
+.bar .fill {
+    width: 20%;
+    height: 100%;
+    background: #0f0;
+}
+/* CSS by GenerateCSS.com */
+.heart_5617cae9ce5d0 {
+    position: absolute;
+    cursor: pointer;
+}
+.heart_5617cae9ce5d0:before,
+.heart_5617cae9ce5d0:after {
+    position:absolute;
+    content: "";
+    left: 19px;
+    top: 0;
+    width: 19px;
+    height: 32px;
+    background-color: #711;
+    -moz-border-radius: 12px 12px 0 0;
+    border-radius: 12px 12px 0 0;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform:rotate(-45deg);
+    -webkit-transform-origin: 0 100%;
+    -moz-transform-origin: 0 100%;
+    -ms-transform-origin: 0 100%;
+    -o-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+}
+.heart_5617cae9ce5d0.hearted:before,
+.heart_5617cae9ce5d0.hearted:after {
+    background-color: #dd1;
+}
+.heart_5617cae9ce5d0:after {
+    left: 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform-origin: 100% 100%;
+    -moz-transform-origin: 100% 100%;
+    -ms-transform-origin: 100% 100%;
+    -o-transform-origin: 100% 100%;
+    transform-origin: 100% 100%;
+}
+
+.ruimte {
+    position: relative;
+    border: 2px solid #000;
+    height: 200px;
+    overflow: hidden;
+    padding: 0 !important;
+}
+
+.ruimte section {
+    padding: 1em;
+}
+
+.blok {
+    width: 100%;
+    margin: 0 !important;
+}
+
+article h2 {
+    padding: 1em;
+}
+
+.header {
+    padding: 1em;
+}
