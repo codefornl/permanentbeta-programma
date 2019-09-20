@@ -24,7 +24,7 @@ var Block = {
     var section = m("section", { class: "blok row", "data-blokid": "block_" + vnode.attrs.key },
       ProgramData.Rooms.map(function (roomdata) {
         // See if we can retrieve an active presentation for a room, given the block.
-        var pres = ProgramData.getPresentation(roomdata.key, vnode.attrs.key);
+        var pres = ProgramData.getPresentation(roomdata.key, vnode.attrs);
         if (pres) {
           roomdata.presentation = pres;
         }
@@ -39,15 +39,22 @@ var Block = {
  */
 var Presentation = {
   view: function (vnode) {
-    console.log(vnode.attrs);
-    return m("section", { class: "presentatie box " + vnode.attrs.thema, "data-presentatieId": vnode.attrs.key },
-      m("div", { class: "indicator", "data-presentatieId": vnode.attrs.key }, [
-        m("div", { class: "heart_5617cae9ce5d0", "data-presentatieId": vnode.attrs.key }),
-        m("div", { class: "bar", "data-presentatieId": vnode.attrs.key, "data-capaciteit": 0 }, m("div", { class: "fill" }, ""))
-      ]),
-      m("h1", vnode.attrs.ruimte + ": " + vnode.attrs.titel),
-      m("h2", vnode.attrs.naam),
-      m("p", vnode.attrs.beschrijving)
+    return m("section", { style: "display:inline;", "data-presentatieId": vnode.attrs.key,
+      onclick: function(){
+        console.log(vnode.dom);
+        vnode.dom.classList.toggle("modal");
+        vnode.dom.firstChild.classList.toggle("modal-content");
+      }},
+      m("div", { class: "presentatie box " + vnode.attrs.thema}, [
+        m("div", { class: "indicator", "data-presentatieId": vnode.attrs.key }, [
+          m("div", { class: "heart_5617cae9ce5d0", "data-presentatieId": vnode.attrs.key }),
+          m("div", { class: "bar", "data-presentatieId": vnode.attrs.key, "data-capaciteit": 0 }, m("div", { class: "fill" }, ""))
+        ]),
+        m("h1", vnode.attrs.ruimte + ": " + vnode.attrs.titel),
+        m("h2", vnode.attrs.naam),
+        m("p", vnode.attrs.beschrijving),
+        m("p", m("h2", vnode.attrs.block.start + " tot " + vnode.attrs.block.end))
+      ])
     );
   }
 }
@@ -80,9 +87,10 @@ var ProgramData = {
     var result;
     Object.keys(ProgramData.Presentations).some(
       function (key) {
-        if (ProgramData.Presentations[key].ruimte === room && ProgramData.Presentations[key].blok === block) {
+        if (ProgramData.Presentations[key].ruimte === room && ProgramData.Presentations[key].blok === block.key) {
           var tmp = ProgramData.Presentations[key];
           tmp.key = key;
+          tmp.block = block;
           result = tmp;
           return;
         }
