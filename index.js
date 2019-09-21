@@ -42,13 +42,16 @@ var Block = {
 var Presentation = {
   view: function (vnode) {
     return m("div", { style: "display:inline;",
-      onclick: function(){
-        console.log(vnode.dom);
+      onclick: function(e){
         vnode.dom.classList.toggle("modal");
         vnode.dom.firstChild.classList.toggle("modal-content");
+        e.stopPropagation();
       }},
       m("div", { class: "presentatie box " + vnode.attrs.thema}, [
-        m("div", { class: "indicator" }, [
+        m("div", { class: "indicator",onclick: function(e){
+          console.log("Heart clicked!");
+          e.stopPropagation();
+        }}, [
           m("div", { class: "heart_5617cae9ce5d0" }),
           m("div", { class: "bar", "data-capaciteit": 0 }, m("div", { class: "fill" }, ""))
         ]),

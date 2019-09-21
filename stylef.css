@@ -48,6 +48,7 @@ p a.button {
 .presentatie p {
     text-align: justify;
     display: none;
+    margin-top: 3em;
 }
 
 .modal-content p {
@@ -204,6 +205,7 @@ article h2 {
   /* Modal Content/Box */
   .modal-content {
     margin: 5% auto; /* 15% from the top and centered */
+    height: 80%;
     padding: 20px;
     width: 80%; /* Could be more or less, depending on screen size */
   }
@@ -221,4 +223,4 @@ article h2 {
     color: black;
     text-decoration: none;
     cursor: pointer;
-  } 
+  }
