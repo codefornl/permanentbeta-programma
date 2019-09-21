@@ -21,16 +21,18 @@ var cardclass = "col-xs-12 col-sm-12 col-md-4 col-lg-2";
 var Block = {
   view: function (vnode) {
     var title = m("h2", vnode.attrs.start + " tot " + vnode.attrs.end)
-    var section = m("section", { class: "blok row", "data-blokid": "block_" + vnode.attrs.key },
+    var section = m("div", { class: "blok row" },
       ProgramData.Rooms.map(function (roomdata) {
         // See if we can retrieve an active presentation for a room, given the block.
         var pres = ProgramData.getPresentation(roomdata.key, vnode.attrs);
         if (pres) {
           roomdata.presentation = pres;
+        } else {
+          delete roomdata.presentation;
         }
         return m(Room, roomdata);
       }));
-    return m("article", [title, section]);
+    return m("div", [title, section]);
   }
 }
 
@@ -39,16 +41,16 @@ var Block = {
  */
 var Presentation = {
   view: function (vnode) {
-    return m("section", { style: "display:inline;", "data-presentatieId": vnode.attrs.key,
+    return m("div", { style: "display:inline;",
       onclick: function(){
         console.log(vnode.dom);
         vnode.dom.classList.toggle("modal");
         vnode.dom.firstChild.classList.toggle("modal-content");
       }},
       m("div", { class: "presentatie box " + vnode.attrs.thema}, [
-        m("div", { class: "indicator", "data-presentatieId": vnode.attrs.key }, [
-          m("div", { class: "heart_5617cae9ce5d0", "data-presentatieId": vnode.attrs.key }),
-          m("div", { class: "bar", "data-presentatieId": vnode.attrs.key, "data-capaciteit": 0 }, m("div", { class: "fill" }, ""))
+        m("div", { class: "indicator" }, [
+          m("div", { class: "heart_5617cae9ce5d0" }),
+          m("div", { class: "bar", "data-capaciteit": 0 }, m("div", { class: "fill" }, ""))
         ]),
         m("h1", vnode.attrs.ruimte + ": " + vnode.attrs.titel),
         m("h2", vnode.attrs.naam),
@@ -65,10 +67,10 @@ var Presentation = {
 var Room = {
   view: function (vnode) {
     if (vnode.attrs.presentation) {
-      return m("section", { class: "ruimte " + cardclass, "data-ruimteid": vnode.attrs.key }, m(Presentation, vnode.attrs.presentation));
+      return m("div", { class: "ruimte " + cardclass }, m(Presentation, vnode.attrs.presentation));
     } else {
       // No presentation in this slot
-      return m("section", { class: "ruimte " + cardclass, "data-ruimteid": vnode.attrs.key }, m("section", { class: "placeholder box" }, vnode.attrs.key));
+      return m("div", { class: "ruimte " + cardclass }, m("section", { class: "placeholder box" }, vnode.attrs.key));
     }
 
   }
@@ -186,7 +188,7 @@ var Header = {
  */
 var Page = {
   view: function () {
-    return m("section", { class: "page" }, [
+    return m("div", { class: "page" }, [
       m(Details),
       m(Header),
       m(Program)
