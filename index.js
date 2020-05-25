@@ -35,7 +35,7 @@ var Block = {
         }
         return m(Room, roomdata);
       }));
-    return m("div", [title, section]);
+    return m("section", { class: "timeslot"}, [title, section]);
   }
 }
 
