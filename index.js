@@ -1,3 +1,7 @@
+var hearts = JSON.parse(localStorage.getItem("hearts")) || {};
+var deviceId = localStorage.getItem("deviceId") || "";
+var cardclass = "col-xs-12 col-sm-12 col-md-4 col-lg-2";
+
 /**
  * In JSON, you are not allowed to assume a sequence for objects.
  * Since the key is unusable for sorting, we will sort on the start of a block.
@@ -12,7 +16,6 @@ function BlockSort(a, b) {
   return atime > btime;
 }
 
-var cardclass = "col-xs-12 col-sm-12 col-md-4 col-lg-2";
 /**
  * Block Mithril Object
  * 
@@ -52,13 +55,13 @@ var Presentation = {
           console.log("Heart clicked!");
           e.stopPropagation();
         }}, [
-          m("div", { class: "heart_5617cae9ce5d0" }),
+          m("div", { class: "heart_5617cae9ce5d0", "data-presentationid": vnode.attrs.key }),
           m("div", { class: "bar", "data-capaciteit": 0 }, m("div", { class: "fill" }, ""))
         ]),
         m("h1", vnode.attrs.ruimte + ": " + vnode.attrs.titel),
         m("h2", vnode.attrs.naam),
         m("p", vnode.attrs.beschrijving),
-        m("p", m("h2", vnode.attrs.block.start + " tot " + vnode.attrs.block.end))
+        m("p", m("h2", vnode.attrs.ruimte + " - " + vnode.attrs.block.start + " tot " + vnode.attrs.block.end))
       ])
     );
   }
@@ -86,6 +89,7 @@ var ProgramData = {
   Blocks: [],
   Rooms: [],
   Themes: {},
+  hearts: [],
   Presentations: {},
   getPresentation: function (room, block) {
     // Find the presentation for the given room and block. There can be only one!
@@ -103,6 +107,20 @@ var ProgramData = {
     )
     return result;
   },
+  hearts: function () {
+    return m.request({
+      method: "GET",
+      url: "hearts.php",
+      //withCredentials: true,
+    })
+      .then(function (result) {
+        // Calculate capacities.
+        //function updateHeartCounts() {
+        //  $.get("/hearts.php", fillCapacities);
+        //}
+        console.log(result);
+      })
+    },
   load: function () {
     return m.request({
       method: "GET",
@@ -203,6 +221,20 @@ var Page = {
  *   __main__
  *   Starts the rendering
  */
+if (!deviceId) {
+  deviceId = (Math.floor(Math.random() * 1000000000)).toString(10);
+  localStorage.setItem("deviceId", deviceId);
+}
 var root = document.body;
 var header = m.mount(root, Page);
+
+// Loop hearts and toggle on.
+Array.from(document.getElementsByClassName(".heart_5617cae9ce5d0"))
+  .forEach(function (el, index, array) {
+    el.toggleClass("hearted", (
+      function (el) {
+        return !!hearts[el.data("presentatieid")];
+      })
+    )
+});
 

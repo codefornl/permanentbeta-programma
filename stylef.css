@@ -1,18 +1,10 @@
 html, body {
-    background: #111;
-    color: white;
     font-family: Verdana, Tahoma, Arial;
 }
 h1 {
-    font-size: 1em;
-    font-weight: 100;
-    font-family: "Fredoka One";
     text-align: center;
 }
 h2 {
-    font-size: 0.8em;
-    font-weight: 500;
-    font-variant: small-caps;
     text-align: center;
 }
 p {
@@ -22,22 +14,20 @@ p a.button {
     display: block;
     width: 200px;
     margin: auto;
-    color: white;
-    border: 1px solid white;
     text-decoration: none;
     margin-top: 10px;
 }
 .blok {
-    background: #333 url(darkdenim3.png);
+    background: rgb(99, 99, 99);
 }
 
 .placeholder {
     padding: 2em;
     text-align: center;
-    font-size: 2em;
-    color: #222;
-    height: 200px;
+    color: rgb(187, 187, 187);
+    overflow-wrap: break-word;
 }
+
 .presentatie {
     padding: 2em;
     overflow-y: hidden;
@@ -169,7 +159,7 @@ p a.button {
 
 .ruimte {
     position: relative;
-    border: 2px solid #000;
+    border: 2px solid #eee;
     height: 200px;
     overflow: hidden;
     padding: 0 !important;
